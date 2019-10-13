@@ -61,8 +61,12 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/ad
 
 ### Deployment
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+`firebase deploy`
 
 ### `npm run build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+### References
+
+* [How to deploy a React application to Firebase](https://www.robinwieruch.de/firebase-deploy-react-js)
