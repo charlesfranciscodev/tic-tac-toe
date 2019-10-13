@@ -1,0 +1,19 @@
+.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#boardOutside {
+  width: 400px;
+  height: 400px;
+  background-color: #E5CCAA;
+  border-radius: 5%;
+  box-shadow: 3px 3px 5px 6px #666;
+}
+
+#boardInside {
+  width: 350px;
+  height: 350px;
+  background: #272636;
+}
