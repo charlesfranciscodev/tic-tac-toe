@@ -1,7 +1,6 @@
 import React from "react";
-import HeroBanner from "./components/HeroBanner"
-import Game from "./components/Game"
-import "./App.css";
+import HeroBanner from "./components/HeroBanner";
+import Game from "./components/Game";
 
 function App() {
   return (
