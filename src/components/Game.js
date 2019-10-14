@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-// import PickGameMode from "./PickGameMode"
-import PickMark from "./PickMark"
+import PickGameMode from "./PickGameMode"
+// import PickMark from "./PickMark"
 import "./Game.css";
 
 class Game extends Component {
@@ -11,8 +11,8 @@ class Game extends Component {
           <div className="container centered">
             <div id="board-outside" className="centered">
               <div id="board-inside">
-                {/* <PickGameMode /> */}
-                <PickMark />
+                <PickGameMode />
+                {/* <PickMark /> */}
               </div>
             </div>
           </div>
