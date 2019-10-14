@@ -1,0 +1,4 @@
+export const GAME_MODE = {
+  SINGLE_PLAYER: "SINGLE_PLAYER",
+  TWO_PLAYERS: "TWO_PLAYERS"
+};
