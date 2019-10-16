@@ -1,11 +1,9 @@
 function pickGameMode(gameMode) {
-  return dispatch => {
-    dispatch({
-      "gameMode": gameMode
-    });
-  }
+  return {
+    "type": gameMode
+  };
 }
 
-export const actions = {
+export const ACTIONS = {
   pickGameMode
 }
