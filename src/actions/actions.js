@@ -1,4 +1,4 @@
-import { RESET } from "../constants";
+import { RESET, GRID } from "../constants";
 
 function pickGameMode(gameMode) {
   return {
@@ -18,8 +18,19 @@ function reset() {
   }
 }
 
+function playMove(row, column, mark, player) {
+  return {
+    "type": GRID.PLAY_MOVE,
+    "row": row,
+    "column": column,
+    "mark": mark,
+    "player": player
+  }
+}
+
 export const ACTIONS = {
   pickGameMode,
   pickMark,
-  reset
+  reset,
+  playMove
 }
