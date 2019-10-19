@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { PickGameMode } from "./PickGameMode";
-import PickMark from "./PickMark";
+import { PickMark } from "./PickMark";
 import Board from "./Board";
 
 import { connect } from "react-redux";
@@ -20,8 +20,6 @@ class Game extends Component {
     } else if (currentView === VIEW.BOARD_VIEW) {
       component = <Board />;
     }
-
-    component = <Board />;
 
     return (
       <div>
