@@ -1,6 +1,6 @@
 import { VIEW, GAME_MODE, MARK } from "../constants";
 
-export function view(state = "", action) {
+export function view(state = VIEW.PICK_GAME_MODE_VIEW, action) {
   switch (action.type) {
     case GAME_MODE.SINGLE_PLAYER:
     case GAME_MODE.MULTIPLAYER:
