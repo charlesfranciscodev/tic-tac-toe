@@ -1,6 +1,12 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 import { BoardColumn } from "./BoardColumn";
-import { GRID } from "../constants";
+import { GRID, PLAYER, GAME_MODE } from "../constants";
+import { ACTIONS } from "../actions";
+
+import { generateRandomMove } from "../helpers";
+
 import "./Board.css";
 
 class Board extends Component {
@@ -18,6 +24,22 @@ class Board extends Component {
       </div>
     )
   }
+
+  componentDidMount() {
+    const { dispatch, currentGame } = this.props;
+
+    // check if it is the AI's turn to play (first turn)
+    if (currentGame.currentPlayer === PLAYER.PLAYER_TWO && currentGame.gameMode === GAME_MODE.SINGLE_PLAYER) {
+      dispatch(ACTIONS.handleAction(GRID.PLAY_MOVE, generateRandomMove(), generateRandomMove()));
+    }
+  }
 }
 
-export default Board;
+function mapStateToProps(state) {
+  return {
+    "currentGame": state.currentGame,
+  }
+}
+
+const connectedBoard = connect(mapStateToProps)(Board);
+export {connectedBoard as Board};

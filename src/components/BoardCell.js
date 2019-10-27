@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { MARK, GRID } from "../constants";
+import { MARK, GRID, PLAYER, GAME_MODE } from "../constants";
 import { ACTIONS } from "../actions";
+
+import { generateRandomMove } from "../helpers";
 
 import "./Board.css";
 
@@ -13,7 +15,7 @@ class BoardCell extends Component {
   }
 
   handleClick(row, column) {
-    const { dispatch } = this.props;
+    const { dispatch, currentGame } = this.props;
 
     // check for play on occupied cell
     if (this.props.currentGame.grid[row][column] !== MARK.EMPTY) {
@@ -21,6 +23,19 @@ class BoardCell extends Component {
     }
 
     dispatch(ACTIONS.handleAction(GRID.PLAY_MOVE, row, column));
+
+    // check if it is the AI's turn to play (based on the previous state)
+    if (currentGame.currentPlayer === PLAYER.PLAYER_ONE && currentGame.gameMode === GAME_MODE.SINGLE_PLAYER) {
+      let nextRow = generateRandomMove();
+      let nextColumn = generateRandomMove();
+      // validate the move
+      while ((nextRow === row && nextColumn === column) || currentGame.grid[nextRow][nextColumn] !== MARK.EMPTY) {
+        nextRow = generateRandomMove();
+        nextColumn = generateRandomMove();
+      }
+
+      dispatch(ACTIONS.handleAction(GRID.PLAY_MOVE, nextRow, nextColumn));
+    }
   }
 
   render() {

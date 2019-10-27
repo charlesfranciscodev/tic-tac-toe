@@ -132,10 +132,6 @@ function computeScores(nextState) {
   }
 }
 
-function generateRandomMove() {
-  return Math.floor((Math.random() * GRID.SIZE));
-}
-
 function copyState(state) {
   return {
     "grid": [...state.grid],
@@ -165,31 +161,7 @@ function handleMove(state, action) {
 
   nextState["currentPlayer"] = state["currentPlayer"] === PLAYER.PLAYER_ONE ? PLAYER.PLAYER_TWO : PLAYER.PLAYER_ONE;
 
-  if (nextState["gameResult"] === GAME_RESULT.UNKNOWN) {
-    /*
-    // check for AI's turn to play
-    if (state.currentPlayer === PLAYER.PLAYER_ONE && state.gameMode === GAME_MODE.SINGLE_PLAYER) {
-      let nextMark = state.playerOneMark === MARK.CROSS ? MARK.NOUGHT : MARK.CROSS;
-
-      let nextRow = generateRandomMove();
-      let nextColumn = generateRandomMove();
-      // validate the move
-      while (state.grid[nextRow][nextColumn] !== MARK.EMPTY) {
-        nextRow = generateRandomMove();
-        nextColumn = generateRandomMove();
-      }
-
-      let nextAction = {
-          "type": null,
-          "row": nextRow,
-          "column": nextColumn,
-          "mark": nextMark,
-      };
-
-      handleMove(state, nextAction);
-    }
-    */
-  } else {
+  if (nextState["gameResult"] !== GAME_RESULT.UNKNOWN) {
     // the game is over
     nextState["grid"] = createEmptyGrid();
     nextState["gameResult"] = GAME_RESULT.UNKNOWN;

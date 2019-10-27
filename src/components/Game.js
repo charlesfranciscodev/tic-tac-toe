@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { PickGameMode } from "./PickGameMode";
 import { PickMark } from "./PickMark";
-import Board from "./Board";
+import { Board } from "./Board";
 import { ScoreBoard } from "./ScoreBoard";
 
 import { ACTIONS } from "../actions";

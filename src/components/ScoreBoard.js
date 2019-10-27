@@ -5,10 +5,13 @@ import { PLAYER, GAME_MODE } from "../constants";
 
 class ScoreBoard extends Component {
   render() {
+    const COMPUTER_HEADER = "Computer";
+    let playerTwoHeader = "Player 2";
     let currentPlayer = this.props.currentGame.currentPlayer;
 
     if (currentPlayer === PLAYER.PLAYER_TWO && this.props.currentGame.gameMode === GAME_MODE.SINGLE_PLAYER) {
-      currentPlayer = "Computer";
+      currentPlayer = COMPUTER_HEADER;
+      playerTwoHeader = COMPUTER_HEADER;
     }
 
     return (
@@ -20,7 +23,7 @@ class ScoreBoard extends Component {
                 <tr>
                   <th>Current Player</th>
                   <th>Player 1</th>
-                  <th>Player 2</th>
+                  <th>{playerTwoHeader}</th>
                 </tr>
               </thead>
               <tbody>
