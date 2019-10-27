@@ -1,29 +1,20 @@
 import React, { Component } from "react";
-
+import { BoardColumn } from "./BoardColumn";
+import { GRID } from "../constants";
 import "./Board.css";
 
 class Board extends Component {
   render() {
+    const array = [];
+    for (let columnIndex = 0; columnIndex < GRID.SIZE; columnIndex++) {
+      array.push(
+        <BoardColumn columnIndex={columnIndex} key={columnIndex}/>
+      )
+    }
+
     return (
-      <div id="grid">
-        {/* Top Row */}
-        <div className="row">
-          <div className="cell"></div>
-          <div className="cell vertical"></div>
-          <div className="cell"></div>
-        </div>
-        {/* Middle Row */}
-        <div className="row">
-          <div className="cell horizontal"></div>
-          <div className="cell horizontal vertical"></div>
-          <div className="cell horizontal"></div>
-        </div>
-        {/* Bottom Row */}
-        <div className="row">
-          <div className="cell"></div>
-          <div className="cell vertical"></div>
-          <div className="cell"></div>
-        </div>
+      <div className="centered">
+        {array}
       </div>
     )
   }

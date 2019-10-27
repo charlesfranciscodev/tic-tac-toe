@@ -136,16 +136,20 @@ function handleMove(state, action) {
   nextState["grid"] = [...state.grid];
   nextState["grid"][action.row][action.column] = action.mark;
 
-  if (action.player === PLAYER.PLAYER_ONE) {
-    nextState["currentPlayer"] = PLAYER.PLAYER_TWO;
-  } else if (action.player === PLAYER.PLAYER_TWO) {
-    nextState["currentPlayer"] = PLAYER.PLAYER_ONE;
-  }
-
   nextState["gameResult"] = computeGameResult(nextState["grid"], nextState["currentPlayer"]);
 
   nextState["scores"] = [...state.scores];
   computeScores(nextState["gameResult"], nextState["scores"]);
+
+  if (nextState["gameResult"] === GAME_RESULT.UNKNOWN) {
+    if (action.player === PLAYER.PLAYER_ONE) {
+      nextState["currentPlayer"] = PLAYER.PLAYER_TWO;
+    } else if (action.player === PLAYER.PLAYER_TWO) {
+      nextState["currentPlayer"] = PLAYER.PLAYER_ONE;
+    }
+  } else {
+    nextState["currentPlayer"] = state["currentPlayer"];
+  }
 
   return nextState
 }
@@ -156,18 +160,6 @@ export function playMove(state=createState(), action) {
       return handleMove(state, action);
     case RESET:
       return createState();
-    default:
-      return state;
-  }
-}
-
-export function player(state, action) {
-  switch (action.type) {
-    case GRID.PLAY_MOVE:
-      if (action.player === PLAYER.PLAYER_ONE) {
-        return PLAYER.PLAYER_TWO;
-      }
-      return PLAYER.PLAYER_ONE;
     default:
       return state;
   }

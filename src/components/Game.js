@@ -35,7 +35,7 @@ class Game extends Component {
         <section className="section">
           <div className="container centered">
             <div id="board-outside" className="centered">
-              <div id="board-inside">
+              <div id="board-inside" className="centered">
                 {component}
               </div>
             </div>

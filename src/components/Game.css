@@ -13,13 +13,9 @@
 }
 
 #board-inside {
-  width: 350px;
-  height: 350px;
+  width: 375px;
+  height: 375px;
   background: #272636;
-}
-
-.pick-title {
-  margin: 4rem 1rem 1rem 1rem;
 }
 
 #back-button {

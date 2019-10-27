@@ -26,7 +26,7 @@ class PickGameMode extends Component {
   render() {
     return (
       <div>
-        <h1 className="title is-4 has-text-centered has-text-light pick-title">How do you want to play?</h1>
+        <h1 className="title is-4 has-text-centered has-text-light">How do you want to play?</h1>
         
         <div className="buttons is-centered">
           <span className="button is-danger is-rounded" onClick={this.handleSinglePlayerButtonClick}>One Player</span>

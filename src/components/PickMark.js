@@ -33,7 +33,7 @@ class PickMark extends Component {
   render() {
     return (
       <div>
-        <h1 className="title is-4 has-text-centered has-text-light pick-title">
+        <h1 className="subtitle has-text-centered has-text-light">
           Player 1: Would you like to be X or O?
         </h1>
         
