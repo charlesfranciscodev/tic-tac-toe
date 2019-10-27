@@ -1,5 +1,5 @@
 export const MARK = {
-  CROSS: "CROSS",
-  NOUGHT: "NOUGHT",
-  EMPTY: "EMPTY"
+  "CROSS": "CROSS",
+  "NOUGHT": "NOUGHT",
+  "EMPTY": "EMPTY"
 };
