@@ -1,4 +1,4 @@
-import { RESET, MARK } from "../constants";
+import { RESET } from "../constants";
 
 function reset() {
   return {
@@ -6,12 +6,11 @@ function reset() {
   }
 }
 
-function handleAction(type, row=-1, column=-1, mark=MARK.EMPTY) {
+function handleAction(type, row=-1, column=-1) {
   return {
     "type": type,
     "row": row,
     "column": column,
-    "mark": mark,
   }
 }
 

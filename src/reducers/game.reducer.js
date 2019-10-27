@@ -150,7 +150,14 @@ function copyState(state) {
 function handleMove(state, action) {
   let nextState = copyState(state);
 
-  nextState["grid"][action.row][action.column] = action.mark;
+  let mark = MARK.EMPTY;
+  if (state.currentPlayer === PLAYER.PLAYER_ONE) {
+    mark = state.playerOneMark;
+  } else if (state.currentPlayer === PLAYER.PLAYER_TWO) {
+    mark = state.playerOneMark === MARK.CROSS ? MARK.NOUGHT : MARK.CROSS;
+  }
+
+  nextState["grid"][action.row][action.column] = mark;
 
   nextState["gameResult"] = computeGameResult(nextState["grid"], state["currentPlayer"]);
 
