@@ -12,20 +12,17 @@ class PickMark extends Component {
     this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
   }
 
-  handleCrossButtonClick(e) {
-    e.preventDefault();
+  handleCrossButtonClick() {
     const { dispatch } = this.props;
     dispatch(ACTIONS.pickMark(MARK.CROSS));
   }
 
-  handleNoughtButtonClick(e) {
-    e.preventDefault();
+  handleNoughtButtonClick() {
     const { dispatch } = this.props;
     dispatch(ACTIONS.pickMark(MARK.NOUGHT));
   }
 
-  handleBackButtonClick(e) {
-    e.preventDefault();
+  handleBackButtonClick() {
     const { dispatch } = this.props;
     dispatch(ACTIONS.reset());
   }
@@ -50,8 +47,8 @@ class PickMark extends Component {
           </button>
         </div>
 
-        <div id="back-button" className="centered">
-          <button className="button is-large is-rounded" onClick={this.handleBackButtonClick}>
+        <div className="has-text-centered">
+          <button className="button is-large is-rounded reset-button" onClick={this.handleBackButtonClick}>
             <span className="icon is-medium">
               <i className="fas fa-arrow-left"></i>
             </span>

@@ -1,4 +1,4 @@
 export const PLAYER = {
-  "PLAYER_ONE": "PLAYER_ONE",
-  "PLAYER_TWO": "PLAYER_TWO"
+  "PLAYER_ONE": "Player 1",
+  "PLAYER_TWO": "Player 2",
 };

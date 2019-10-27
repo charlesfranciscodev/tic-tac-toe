@@ -42,7 +42,7 @@ function computeGameResult(grid, currentPlayer) {
   for (let row = 0; row < GRID.SIZE; row++) {
     let mark = grid[row][0];
     if (mark === MARK.EMPTY) {
-      break;
+      continue;
     }
     let gameOver = true;
     for (let column = 1; column < GRID.SIZE; column++) {
@@ -60,7 +60,7 @@ function computeGameResult(grid, currentPlayer) {
   for (let column = 0; column < GRID.SIZE; column++) {
     let mark = grid[0][column];
     if (mark === MARK.EMPTY) {
-      break;
+      continue;
     }
     let gameOver = true;
     for (let row = 1; row < GRID.SIZE; row++) {
@@ -136,7 +136,7 @@ function handleMove(state, action) {
   nextState["grid"] = [...state.grid];
   nextState["grid"][action.row][action.column] = action.mark;
 
-  nextState["gameResult"] = computeGameResult(nextState["grid"], nextState["currentPlayer"]);
+  nextState["gameResult"] = computeGameResult(nextState["grid"], state["currentPlayer"]);
 
   nextState["scores"] = [...state.scores];
   computeScores(nextState["gameResult"], nextState["scores"]);
@@ -148,7 +148,10 @@ function handleMove(state, action) {
       nextState["currentPlayer"] = PLAYER.PLAYER_ONE;
     }
   } else {
+    // the game is over
+    nextState["grid"] = createEmptyGrid();
     nextState["currentPlayer"] = state["currentPlayer"];
+    nextState["gameResult"] = GAME_RESULT.UNKNOWN;
   }
 
   return nextState

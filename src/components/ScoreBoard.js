@@ -1,8 +1,15 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
+import { connect } from "react-redux";
+
+import { PLAYER, GAME_MODE } from "../constants";
 
 class ScoreBoard extends Component {
   render() {
-    const scores = this.props.scores;
+    let currentPlayer = this.props.currentGame.currentPlayer;
+
+    if (currentPlayer === PLAYER.PLAYER_TWO && this.props.gameMode === GAME_MODE.SINGLE_PLAYER) {
+      currentPlayer = "Computer";
+    }
 
     return (
       <div className="container">
@@ -11,14 +18,16 @@ class ScoreBoard extends Component {
             <table className="table">
               <thead>
                 <tr>
+                  <th>Current Player</th>
                   <th>Player 1</th>
                   <th>Player 2</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>{scores[0]}</td>
-                  <td>{scores[1]}</td>
+                  <td>{currentPlayer}</td>
+                  <td>{this.props.currentGame.scores[0]}</td>
+                  <td>{this.props.currentGame.scores[1]}</td>
                 </tr>
               </tbody>
             </table>
@@ -29,4 +38,12 @@ class ScoreBoard extends Component {
   }
 }
 
-export default ScoreBoard;
+function mapStateToProps(state) {
+  return {
+    "gameMode": state.gameMode,
+    "currentGame": state.currentGame,
+  }
+}
+
+const connectedScoreBoard = connect(mapStateToProps)(ScoreBoard);
+export {connectedScoreBoard as ScoreBoard};

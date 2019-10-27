@@ -14,16 +14,23 @@ class BoardCell extends Component {
 
   handleClick(row, column) {
     const { dispatch } = this.props;
+
+    // check for play on occupied cell
+    if (this.props.currentGame.grid[row][column] !== MARK.EMPTY) {
+      return;
+    }
+
     let mark = MARK.EMPTY;
     if (this.props.currentGame.currentPlayer === PLAYER.PLAYER_ONE) {
       mark = this.props.playerOneMark;
     } else if (this.props.currentGame.currentPlayer === PLAYER.PLAYER_TWO) {
       if (this.props.playerOneMark === MARK.CROSS) {
         mark = MARK.NOUGHT;
-      } else if (mark === MARK.NOUGHT) {
+      } else if (this.props.playerOneMark === MARK.NOUGHT) {
         mark = MARK.CROSS;
       }
     }
+
     dispatch(ACTIONS.playMove(row, column, mark, this.props.currentGame.currentPlayer));
   }
 
