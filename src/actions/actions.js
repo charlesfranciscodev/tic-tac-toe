@@ -1,16 +1,4 @@
-import { RESET, GRID } from "../constants";
-
-function pickGameMode(gameMode) {
-  return {
-    "type": gameMode
-  };
-}
-
-function pickMark(mark) {
-  return {
-    "type": mark
-  };
-}
+import { RESET, MARK } from "../constants";
 
 function reset() {
   return {
@@ -18,19 +6,16 @@ function reset() {
   }
 }
 
-function playMove(row, column, mark, player) {
+function handleAction(type, row=-1, column=-1, mark=MARK.EMPTY) {
   return {
-    "type": GRID.PLAY_MOVE,
+    "type": type,
     "row": row,
     "column": column,
     "mark": mark,
-    "player": player
   }
 }
 
 export const ACTIONS = {
-  pickGameMode,
-  pickMark,
   reset,
-  playMove
+  handleAction
 }

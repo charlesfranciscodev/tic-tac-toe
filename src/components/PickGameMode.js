@@ -13,12 +13,12 @@ class PickGameMode extends Component {
 
   handleSinglePlayerButtonClick() {
     const { dispatch } = this.props;
-    dispatch(ACTIONS.pickGameMode(GAME_MODE.SINGLE_PLAYER));
+    dispatch(ACTIONS.handleAction(GAME_MODE.SINGLE_PLAYER));
   }
 
   handleMultiPlayerButtonClick() {
     const { dispatch } = this.props;
-    dispatch(ACTIONS.pickGameMode(GAME_MODE.MULTIPLAYER));
+    dispatch(ACTIONS.handleAction(GAME_MODE.MULTIPLAYER));
   }
 
   render() {

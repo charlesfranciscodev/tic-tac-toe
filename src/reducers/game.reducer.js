@@ -1,4 +1,4 @@
-import { MARK, GRID, RESET, PLAYER, GAME_RESULT } from "../constants";
+import { MARK, GRID, RESET, PLAYER, GAME_RESULT, GAME_MODE } from "../constants";
 
 function createEmptyGrid() {
   let initialGrid = [];
@@ -24,7 +24,9 @@ function createState() {
     "grid": createEmptyGrid(),
     "currentPlayer": pickRandomPlayer(),
     "gameResult": GAME_RESULT.UNKNOWN,
-    "scores": [0, 0]
+    "scores": [0, 0],
+    "gameMode": GAME_MODE.UNKNOWN,
+    "playerOneMark": MARK.EMPTY
   };
   return state;
 }
@@ -122,43 +124,85 @@ function computeGameResult(grid, currentPlayer) {
   return GAME_RESULT.DRAW;
 }
 
-function computeScores(gameResult, scores) {
-  if (gameResult === GAME_RESULT.WIN) {
-    scores[0] += 1;
-  } else if (gameResult === GAME_RESULT.LOSS) {
-    scores[1] += 1;
+function computeScores(nextState) {
+  if (nextState["gameResult"] === GAME_RESULT.WIN) {
+    nextState["scores"][0] += 1;
+  } else if (nextState["gameResult"] === GAME_RESULT.LOSS) {
+    nextState["scores"][1] += 1;
   }
 }
 
-function handleMove(state, action) {
-  let nextState = {};
+function generateRandomMove() {
+  return Math.floor((Math.random() * GRID.SIZE));
+}
 
-  nextState["grid"] = [...state.grid];
+function copyState(state) {
+  return {
+    "grid": [...state.grid],
+    "currentPlayer": state.currentPlayer,
+    "gameResult": state.gameResult,
+    "scores": [...state.scores],
+    "gameMode": state.gameMode,
+    "playerOneMark": state.playerOneMark,
+  };
+}
+
+function handleMove(state, action) {
+  let nextState = copyState(state);
+
   nextState["grid"][action.row][action.column] = action.mark;
 
   nextState["gameResult"] = computeGameResult(nextState["grid"], state["currentPlayer"]);
 
-  nextState["scores"] = [...state.scores];
-  computeScores(nextState["gameResult"], nextState["scores"]);
+  computeScores(nextState);
+
+  nextState["currentPlayer"] = state["currentPlayer"] === PLAYER.PLAYER_ONE ? PLAYER.PLAYER_TWO : PLAYER.PLAYER_ONE;
 
   if (nextState["gameResult"] === GAME_RESULT.UNKNOWN) {
-    if (action.player === PLAYER.PLAYER_ONE) {
-      nextState["currentPlayer"] = PLAYER.PLAYER_TWO;
-    } else if (action.player === PLAYER.PLAYER_TWO) {
-      nextState["currentPlayer"] = PLAYER.PLAYER_ONE;
+    /*
+    // check for AI's turn to play
+    if (state.currentPlayer === PLAYER.PLAYER_ONE && state.gameMode === GAME_MODE.SINGLE_PLAYER) {
+      let nextMark = state.playerOneMark === MARK.CROSS ? MARK.NOUGHT : MARK.CROSS;
+
+      let nextRow = generateRandomMove();
+      let nextColumn = generateRandomMove();
+      // validate the move
+      while (state.grid[nextRow][nextColumn] !== MARK.EMPTY) {
+        nextRow = generateRandomMove();
+        nextColumn = generateRandomMove();
+      }
+
+      let nextAction = {
+          "type": null,
+          "row": nextRow,
+          "column": nextColumn,
+          "mark": nextMark,
+      };
+
+      handleMove(state, nextAction);
     }
+    */
   } else {
     // the game is over
     nextState["grid"] = createEmptyGrid();
-    nextState["currentPlayer"] = state["currentPlayer"];
     nextState["gameResult"] = GAME_RESULT.UNKNOWN;
   }
 
-  return nextState
+  return nextState;
 }
 
-export function playMove(state=createState(), action) {
+export function handleAction(state=createState(), action) {
+  let nextState = copyState(state);
+
   switch (action.type) {
+    case GAME_MODE.SINGLE_PLAYER:
+    case GAME_MODE.MULTIPLAYER:
+      nextState["gameMode"] = action.type;
+      return nextState;
+    case MARK.CROSS:
+    case MARK.NOUGHT:
+      nextState["playerOneMark"] = action.type;
+      return nextState;
     case GRID.PLAY_MOVE:
       return handleMove(state, action);
     case RESET:

@@ -1,15 +1,11 @@
 import { combineReducers } from "redux";
 
 import { view } from "./view.reducer";
-import { pickGameMode } from "./pickGameMode.reducer";
-import { pickMark } from "./pickMark.reducer";
-import { playMove } from "./game.reducer";
+import { handleAction } from "./game.reducer";
 
 const COMBINED_REDUCERS = combineReducers({
   currentView: view,
-  gameMode: pickGameMode,
-  playerOneMark: pickMark,
-  currentGame: playMove,
+  currentGame: handleAction,
 });
 
 export default COMBINED_REDUCERS;

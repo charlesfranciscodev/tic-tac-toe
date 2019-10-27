@@ -14,12 +14,12 @@ class PickMark extends Component {
 
   handleCrossButtonClick() {
     const { dispatch } = this.props;
-    dispatch(ACTIONS.pickMark(MARK.CROSS));
+    dispatch(ACTIONS.handleAction(MARK.CROSS));
   }
 
   handleNoughtButtonClick() {
     const { dispatch } = this.props;
-    dispatch(ACTIONS.pickMark(MARK.NOUGHT));
+    dispatch(ACTIONS.handleAction(MARK.NOUGHT));
   }
 
   handleBackButtonClick() {

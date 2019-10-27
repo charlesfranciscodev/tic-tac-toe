@@ -7,7 +7,7 @@ class ScoreBoard extends Component {
   render() {
     let currentPlayer = this.props.currentGame.currentPlayer;
 
-    if (currentPlayer === PLAYER.PLAYER_TWO && this.props.gameMode === GAME_MODE.SINGLE_PLAYER) {
+    if (currentPlayer === PLAYER.PLAYER_TWO && this.props.currentGame.gameMode === GAME_MODE.SINGLE_PLAYER) {
       currentPlayer = "Computer";
     }
 
@@ -40,7 +40,6 @@ class ScoreBoard extends Component {
 
 function mapStateToProps(state) {
   return {
-    "gameMode": state.gameMode,
     "currentGame": state.currentGame,
   }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { PLAYER, MARK } from "../constants";
+import { PLAYER, MARK, GRID } from "../constants";
 import { ACTIONS } from "../actions";
 
 import "./Board.css";
@@ -22,16 +22,16 @@ class BoardCell extends Component {
 
     let mark = MARK.EMPTY;
     if (this.props.currentGame.currentPlayer === PLAYER.PLAYER_ONE) {
-      mark = this.props.playerOneMark;
+      mark = this.props.currentGame.playerOneMark;
     } else if (this.props.currentGame.currentPlayer === PLAYER.PLAYER_TWO) {
-      if (this.props.playerOneMark === MARK.CROSS) {
+      if (this.props.currentGame.playerOneMark === MARK.CROSS) {
         mark = MARK.NOUGHT;
-      } else if (this.props.playerOneMark === MARK.NOUGHT) {
+      } else if (this.props.currentGame.playerOneMark === MARK.NOUGHT) {
         mark = MARK.CROSS;
       }
     }
 
-    dispatch(ACTIONS.playMove(row, column, mark, this.props.currentGame.currentPlayer));
+    dispatch(ACTIONS.handleAction(GRID.PLAY_MOVE, row, column, mark));
   }
 
   render() {
@@ -57,7 +57,6 @@ class BoardCell extends Component {
 function mapStateToProps(state) {
   return {
     "currentGame": state.currentGame,
-    "playerOneMark": state.playerOneMark
   }
 }
 
