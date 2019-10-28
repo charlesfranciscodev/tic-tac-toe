@@ -28,7 +28,7 @@ class Board extends Component {
   componentDidMount() {
     const { dispatch, currentGame } = this.props;
 
-    // check if it is the AI's turn to play (first turn)
+    // check if it is the AI's turn to play (first turn of the first game)
     if (currentGame.currentPlayer === PLAYER.PLAYER_TWO && currentGame.gameMode === GAME_MODE.SINGLE_PLAYER) {
       dispatch(ACTIONS.handleAction(GRID.PLAY_MOVE, generateRandomMove(), generateRandomMove()));
     }

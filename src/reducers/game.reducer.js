@@ -1,5 +1,7 @@
 import { MARK, GRID, RESET, PLAYER, GAME_RESULT, GAME_MODE } from "../constants";
 
+import { generateRandomMove } from "../helpers";
+
 function createEmptyGrid() {
   let initialGrid = [];
   for (let i = 0; i < GRID.SIZE; i++) {
@@ -161,10 +163,37 @@ function handleMove(state, action) {
 
   nextState["currentPlayer"] = state["currentPlayer"] === PLAYER.PLAYER_ONE ? PLAYER.PLAYER_TWO : PLAYER.PLAYER_ONE;
 
-  if (nextState["gameResult"] !== GAME_RESULT.UNKNOWN) {
+  if (nextState["gameResult"] === GAME_RESULT.UNKNOWN) {
+    // check if it is the AI's turn to play (second to last turn of all games)
+    if (nextState.currentPlayer === PLAYER.PLAYER_TWO && state.gameMode === GAME_MODE.SINGLE_PLAYER) {
+      let nextRow = generateRandomMove();
+      let nextColumn = generateRandomMove();
+      // validate the move
+      while (nextState.grid[nextRow][nextColumn] !== MARK.EMPTY) {
+        nextRow = generateRandomMove();
+        nextColumn = generateRandomMove();
+      }
+      let nextAction = {
+        "type": GRID.PLAY_MOVE,
+        "row": nextRow,
+        "column": nextColumn
+      };
+      return handleMove(nextState, nextAction);
+    }
+  } else {
     // the game is over
     nextState["grid"] = createEmptyGrid();
     nextState["gameResult"] = GAME_RESULT.UNKNOWN;
+
+    // check if it is the AI's turn to play (first turn of the second and future games)
+    if (nextState.currentPlayer === PLAYER.PLAYER_TWO && state.gameMode === GAME_MODE.SINGLE_PLAYER) {
+      let nextAction = {
+        "type": GRID.PLAY_MOVE,
+        "row": generateRandomMove(),
+        "column": generateRandomMove()
+      };
+      return handleMove(nextState, nextAction);
+    }
   }
 
   return nextState;
