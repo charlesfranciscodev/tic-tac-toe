@@ -127,10 +127,10 @@ function computeGameResult(grid, currentPlayer) {
 }
 
 function computeScores(nextState) {
-  if (nextState["gameResult"] === GAME_RESULT.WIN) {
-    nextState["scores"][0] += 1;
-  } else if (nextState["gameResult"] === GAME_RESULT.LOSS) {
-    nextState["scores"][1] += 1;
+  if (nextState.gameResult === GAME_RESULT.WIN) {
+    nextState.scores[0] += 1;
+  } else if (nextState.gameResult === GAME_RESULT.LOSS) {
+    nextState.scores[1] += 1;
   }
 }
 
@@ -155,15 +155,15 @@ function handleMove(state, action) {
     mark = state.playerOneMark === MARK.CROSS ? MARK.NOUGHT : MARK.CROSS;
   }
 
-  nextState["grid"][action.row][action.column] = mark;
+  nextState.grid[action.row][action.column] = mark;
 
-  nextState["gameResult"] = computeGameResult(nextState["grid"], state["currentPlayer"]);
+  nextState.gameResult = computeGameResult(nextState.grid, state.currentPlayer);
 
   computeScores(nextState);
 
-  nextState["currentPlayer"] = state["currentPlayer"] === PLAYER.PLAYER_ONE ? PLAYER.PLAYER_TWO : PLAYER.PLAYER_ONE;
+  nextState.currentPlayer = state.currentPlayer === PLAYER.PLAYER_ONE ? PLAYER.PLAYER_TWO : PLAYER.PLAYER_ONE;
 
-  if (nextState["gameResult"] === GAME_RESULT.UNKNOWN) {
+  if (nextState.gameResult === GAME_RESULT.UNKNOWN) {
     // check if it is the AI's turn to play (second to last turn of all games)
     if (nextState.currentPlayer === PLAYER.PLAYER_TWO && state.gameMode === GAME_MODE.SINGLE_PLAYER) {
       let nextRow = generateRandomMove();
@@ -182,8 +182,8 @@ function handleMove(state, action) {
     }
   } else {
     // the game is over
-    nextState["grid"] = createEmptyGrid();
-    nextState["gameResult"] = GAME_RESULT.UNKNOWN;
+    nextState.grid = createEmptyGrid();
+    nextState.gameResult = GAME_RESULT.UNKNOWN;
 
     // check if it is the AI's turn to play (first turn of the second and future games)
     if (nextState.currentPlayer === PLAYER.PLAYER_TWO && state.gameMode === GAME_MODE.SINGLE_PLAYER) {
@@ -205,11 +205,11 @@ export function handleAction(state=createState(), action) {
   switch (action.type) {
     case GAME_MODE.SINGLE_PLAYER:
     case GAME_MODE.MULTIPLAYER:
-      nextState["gameMode"] = action.type;
+      nextState.gameMode = action.type;
       return nextState;
     case MARK.CROSS:
     case MARK.NOUGHT:
-      nextState["playerOneMark"] = action.type;
+      nextState.playerOneMark = action.type;
       return nextState;
     case GRID.PLAY_MOVE:
       return handleMove(state, action);
